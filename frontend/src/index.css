@@ -109,3 +109,45 @@
     font-family: var(--font-display);
   }
 }
+
+/*
+  Pinos do "mapa vivo" — cada doador ativo pisca na cor dos olhos da
+  Terra. Cor fixa (não segue tema claro/escuro) porque o mapa em si é
+  sempre escuro (tiles CartoDB dark_all).
+*/
+.map-pin {
+  width: 14px;
+  height: 14px;
+  border-radius: 9999px;
+}
+
+.map-pin-donor {
+  background: #c3c94e;
+  box-shadow: 0 0 0 0 rgba(195, 201, 78, 0.6);
+  animation: map-pin-pulse-donor 2.2s ease-out infinite;
+}
+
+.map-pin-sos {
+  background: #a8453f;
+  box-shadow: 0 0 0 0 rgba(168, 69, 63, 0.6);
+  animation: map-pin-pulse-sos 1.4s ease-out infinite;
+}
+
+@keyframes map-pin-pulse-donor {
+  0% { box-shadow: 0 0 0 0 rgba(195, 201, 78, 0.5); }
+  70% { box-shadow: 0 0 0 10px rgba(195, 201, 78, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(195, 201, 78, 0); }
+}
+
+@keyframes map-pin-pulse-sos {
+  0% { box-shadow: 0 0 0 0 rgba(168, 69, 63, 0.6); }
+  70% { box-shadow: 0 0 0 12px rgba(168, 69, 63, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(168, 69, 63, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-pin-donor,
+  .map-pin-sos {
+    animation: none;
+  }
+}

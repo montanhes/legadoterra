@@ -7,6 +7,7 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import NewPet from './pages/pets/NewPet'
 import PetDetail from './pages/pets/PetDetail'
+import Search from './pages/Search'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/painel" element={<Dashboard />} />
           <Route path="/painel/pets/novo" element={<NewPet />} />
           <Route path="/painel/pets/:id" element={<PetDetail />} />
+          <Route path="/buscar" element={<Search />} />
         </Route>
       </Route>
     </Routes>

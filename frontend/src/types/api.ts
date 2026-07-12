@@ -143,3 +143,42 @@ export interface Pet {
   donor_profile?: DonorProfile | null
   created_at: string
 }
+
+export interface DonorSearchResult {
+  id: number
+  name: string
+  species: Species
+  species_label: string
+  breed: string | null
+  photo_path: string | null
+  distance_km: number
+  lat: number
+  lng: number
+  donor_profile: DonorProfile
+  tutor: {
+    name: string
+    phone: string | null
+  }
+}
+
+export interface DonationRequestSearchResult {
+  id: number
+  pet: {
+    name: string
+    species: Species
+    species_label: string
+    breed: string | null
+    photo_path: string | null
+  }
+  blood_type_needed: BloodType | null
+  blood_type_needed_label: string | null
+  donation_type_label: string
+  distance_km: number
+  lat: number
+  lng: number
+  expires_at: string
+  requester: {
+    name: string
+    phone: string | null
+  }
+}

@@ -22,6 +22,9 @@ export default function Layout() {
           <nav className="flex items-center gap-4 font-mono text-sm">
             {isLoading ? null : user ? (
               <>
+                <Link to="/buscar" className="text-muted-foreground hover:text-foreground">
+                  buscar
+                </Link>
                 <Link to="/painel" className="text-muted-foreground hover:text-foreground">
                   meus pets
                 </Link>
