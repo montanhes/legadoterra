@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Clinic extends Model
 {
     protected $fillable = [
+        'user_id',
         'name',
         'cep',
         'city',
@@ -23,5 +25,10 @@ class Clinic extends Model
             'lng' => 'decimal:7',
             'verified' => 'boolean',
         ];
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

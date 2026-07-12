@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -37,5 +38,15 @@ class User extends Authenticatable
     public function pets(): HasMany
     {
         return $this->hasMany(Pet::class, 'tutor_id');
+    }
+
+    public function clinic(): HasOne
+    {
+        return $this->hasOne(Clinic::class);
+    }
+
+    public function isVerifiedClinic(): bool
+    {
+        return $this->clinic()->where('verified', true)->exists();
     }
 }
