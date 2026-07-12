@@ -18,7 +18,8 @@ return new class extends Migration
             $table->tinyInteger('reason')->unsigned();
             $table->timestamps();
 
-            $table->index('donor_profile_id');
+            // 1 denúncia por usuário por perfil — evita 1 conta forçar sozinha o auto-inativação
+            $table->unique(['donor_profile_id', 'reporter_id']);
         });
     }
 
