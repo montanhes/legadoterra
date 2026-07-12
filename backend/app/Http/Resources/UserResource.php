@@ -21,6 +21,11 @@ class UserResource extends JsonResource
             'state' => $this->state,
             'lat' => $this->lat,
             'lng' => $this->lng,
+            'clinic' => $this->whenLoaded('clinic', fn () => [
+                'id' => $this->clinic->id,
+                'name' => $this->clinic->name,
+                'verified' => $this->clinic->verified,
+            ]),
         ];
     }
 }

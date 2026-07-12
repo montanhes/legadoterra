@@ -8,6 +8,11 @@ export interface User {
   state: string | null
   lat: string | null
   lng: string | null
+  clinic?: {
+    id: number
+    name: string
+    verified: boolean
+  } | null
 }
 
 export const Species = {

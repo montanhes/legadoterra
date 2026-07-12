@@ -22,7 +22,7 @@ Route::post('/clinics/register', [ClinicRegistrationController::class, 'store'])
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
-    Route::get('/user', fn (Request $request) => UserResource::make($request->user()));
+    Route::get('/user', fn (Request $request) => UserResource::make($request->user()->load('clinic')));
 
     Route::apiResource('pets', PetController::class);
     Route::post('/pets/{pet}/donor-profile', [DonorProfileController::class, 'store']);

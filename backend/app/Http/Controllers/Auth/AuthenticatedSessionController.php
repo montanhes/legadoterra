@@ -16,7 +16,7 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
         $request->session()->regenerate();
 
-        return UserResource::make($request->user());
+        return UserResource::make($request->user()->load('clinic'));
     }
 
     public function destroy(Request $request): Response

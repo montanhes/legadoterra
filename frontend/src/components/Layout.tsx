@@ -20,7 +20,20 @@ export default function Layout() {
           </Link>
 
           <nav className="flex items-center gap-4 font-mono text-sm">
-            {isLoading ? null : user ? (
+            {isLoading ? null : user?.clinic ? (
+              <>
+                <Link to="/clinica/confirmar" className="text-muted-foreground hover:text-foreground">
+                  confirmar tipagem
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  disabled={logout.isPending}
+                  className="text-muted-foreground hover:text-foreground disabled:opacity-50"
+                >
+                  sair
+                </button>
+              </>
+            ) : user ? (
               <>
                 <Link to="/buscar" className="text-muted-foreground hover:text-foreground">
                   buscar
@@ -38,6 +51,12 @@ export default function Layout() {
               </>
             ) : (
               <>
+                <Link
+                  to="/clinica/cadastro"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  sou clínica
+                </Link>
                 <Link to="/entrar" className="text-muted-foreground hover:text-foreground">
                   entrar
                 </Link>
