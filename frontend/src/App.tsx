@@ -3,6 +3,7 @@ import Layout from './components/Layout'
 import ProtectedRoute from './components/ProtectedRoute'
 import ClinicRoute from './components/ClinicRoute'
 import Home from './pages/Home'
+import About from './pages/About'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -17,6 +18,7 @@ function App() {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
+        <Route path="/sobre" element={<About />} />
         <Route path="/entrar" element={<Login />} />
         <Route path="/cadastro" element={<Register />} />
         <Route path="/clinica/cadastro" element={<RegisterClinic />} />

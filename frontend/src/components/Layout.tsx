@@ -75,6 +75,14 @@ export default function Layout() {
       <main>
         <Outlet />
       </main>
+
+      <footer className="border-t border-border">
+        <div className="mx-auto max-w-5xl px-6 py-6">
+          <Link to="/sobre" className="font-mono text-xs text-muted-foreground hover:text-foreground">
+            por que "Legado Terra"?
+          </Link>
+        </div>
+      </footer>
     </div>
   )
 }
