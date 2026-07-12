@@ -3,10 +3,12 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router'
 import { z } from 'zod'
+import DateField from '../../components/form/DateField'
 import SelectField from '../../components/form/SelectField'
 import TextField from '../../components/form/TextField'
 import { useUser } from '../../hooks/useAuth'
 import { useCreatePet } from '../../hooks/usePets'
+import { brDateToIso, isValidBrDate } from '../../lib/date'
 import { getApiErrorMessage } from '../../lib/errors'
 import { Sex, Species, sexLabels, speciesLabels } from '../../types/api'
 
@@ -16,7 +18,10 @@ const schema = z.object({
   sex: z.string().min(1, 'Selecione o sexo.'),
   breed: z.string().optional(),
   weight: z.string().optional(),
-  birthdate: z.string().optional(),
+  birthdate: z
+    .string()
+    .optional()
+    .refine((value) => !value || isValidBrDate(value), 'Data inválida.'),
   castrado: z.boolean().optional(),
 })
 
@@ -33,6 +38,7 @@ export default function NewPet() {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
   } = useForm<FormValues>({ resolver: zodResolver(schema) })
@@ -54,7 +60,7 @@ export default function NewPet() {
       sex: Number(values.sex) as Sex,
       breed: values.breed || undefined,
       weight: values.weight ? Number(values.weight) : undefined,
-      birthdate: values.birthdate || undefined,
+      birthdate: values.birthdate ? brDateToIso(values.birthdate) : undefined,
       castrado: values.castrado,
       ...coords,
     })
@@ -91,7 +97,12 @@ export default function NewPet() {
           registration={register('weight')}
           error={errors.weight?.message}
         />
-        <TextField label="Data de nascimento (opcional)" type="date" registration={register('birthdate')} />
+        <DateField
+          label="Data de nascimento (opcional)"
+          name="birthdate"
+          control={control}
+          error={errors.birthdate?.message}
+        />
 
         <label className="flex items-center gap-2 text-sm text-muted-foreground">
           <input type="checkbox" {...register('castrado')} />
