@@ -5,6 +5,8 @@ import Home from './pages/Home'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import NewPet from './pages/pets/NewPet'
+import PetDetail from './pages/pets/PetDetail'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
 
         <Route element={<ProtectedRoute />}>
           <Route path="/painel" element={<Dashboard />} />
+          <Route path="/painel/pets/novo" element={<NewPet />} />
+          <Route path="/painel/pets/:id" element={<PetDetail />} />
         </Route>
       </Route>
     </Routes>
