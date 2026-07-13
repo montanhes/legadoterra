@@ -1,12 +1,9 @@
 FROM php:8.4-cli-alpine
 
-RUN apk add --no-cache \
-        icu-dev \
-        oniguruma-dev \
-        libzip-dev \
-        libxml2-dev \
+RUN apk add --no-cache icu-libs libzip oniguruma libxml2 \
+    && apk add --no-cache --virtual .build-deps icu-dev oniguruma-dev libzip-dev libxml2-dev \
     && docker-php-ext-install pdo_mysql mbstring intl zip bcmath xml \
-    && apk del icu-dev oniguruma-dev libzip-dev libxml2-dev
+    && apk del .build-deps
 
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
