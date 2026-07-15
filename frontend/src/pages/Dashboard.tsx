@@ -8,12 +8,12 @@ export default function Dashboard() {
   const { data: pets, isLoading } = usePets()
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-24">
-      <div className="flex items-center justify-between">
+    <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h1 className="font-display text-3xl">Olá, {user?.name}</h1>
         <Link
           to="/painel/pets/novo"
-          className="rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground"
+          className="w-fit shrink-0 whitespace-nowrap rounded-full bg-primary px-5 py-2.5 font-medium text-primary-foreground"
         >
           + novo pet
         </Link>

@@ -32,7 +32,7 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col gap-6 px-6 py-24">
+    <div className="mx-auto flex max-w-sm flex-col gap-6 px-6 py-16 md:py-24">
       <h1 className="font-display text-3xl">Entrar</h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">

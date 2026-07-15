@@ -37,7 +37,7 @@ export default function PetDetail() {
   } = useForm<DonorFormValues>({ resolver: zodResolver(donorSchema) })
 
   if (isLoading || !pet) {
-    return <div className="mx-auto max-w-3xl px-6 py-24 text-muted-foreground">carregando...</div>
+    return <div className="mx-auto max-w-3xl px-6 py-16 md:py-24 text-muted-foreground">carregando...</div>
   }
 
   const mutation = pet.donor_profile ? updateDonorProfile : createDonorProfile
@@ -64,7 +64,7 @@ export default function PetDetail() {
   }))
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col gap-8 px-6 py-24">
+    <div className="mx-auto flex max-w-sm flex-col gap-8 px-6 py-16 md:py-24">
       <div>
         <h1 className="font-display text-3xl">{pet.name}</h1>
         <p className="font-mono text-sm text-muted-foreground">
