@@ -111,14 +111,23 @@
 }
 
 /*
+  Mapa em teste: boost de contraste/brilho nos tiles pra rotulos
+  ficarem mais legiveis sem trocar de tema (CartoDB dark_all).
+*/
+.contrast-boost {
+  filter: brightness(2.4) contrast(1.4);
+}
+
+/*
   Pinos do "mapa vivo" — cada doador ativo pisca na cor dos olhos da
-  Terra. Cor fixa (não segue tema claro/escuro) porque o mapa em si é
-  sempre escuro (tiles CartoDB dark_all).
+  Terra. Cor fixa (não segue tema claro/escuro). Anel branco garante
+  contraste contra o mapa em qualquer tema.
 */
 .map-pin {
   width: 14px;
   height: 14px;
   border-radius: 9999px;
+  border: 2px solid #fff;
 }
 
 .map-pin-donor {

@@ -47,6 +47,7 @@ export default function DonorMap({ center, points }: DonorMapProps) {
       <TileLayer
         attribution='&copy; <a href="https://carto.com/attributions">CARTO</a> &copy; OpenStreetMap'
         url="https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png"
+        className="contrast-boost"
       />
       {points.map((point) => (
         <Marker
