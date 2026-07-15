@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router'
 import { useLogout, useUser } from '../hooks/useAuth'
+import type { User } from '../types/api'
 
 interface NavLinksProps {
   linkClassName: string
@@ -66,6 +67,112 @@ function NavLinks({ linkClassName, onNavigate }: NavLinksProps) {
   )
 }
 
+interface AccountMenuProps {
+  user: User
+  links: { to: string; label: string }[]
+}
+
+function AccountMenu({ user, links }: AccountMenuProps) {
+  const [open, setOpen] = useState(false)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const logout = useLogout()
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
+        setOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  async function handleLogout() {
+    setOpen(false)
+    await logout.mutateAsync()
+    navigate('/')
+  }
+
+  return (
+    <div ref={containerRef} className="relative">
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        aria-label="Menu da conta"
+        aria-expanded={open}
+        className="flex h-9 w-9 items-center justify-center rounded-full bg-primary font-medium text-primary-foreground transition-opacity hover:opacity-90"
+      >
+        {user.name.charAt(0).toUpperCase()}
+      </button>
+
+      {open && (
+        <div className="absolute right-0 top-full z-20 mt-2 w-52 rounded-xl border border-border bg-card py-2 shadow-lg">
+          <p className="truncate px-4 py-2 font-medium text-foreground">{user.name}</p>
+          <div className="border-t border-border pt-1">
+            {links.map((link) => (
+              <Link
+                key={link.to}
+                to={link.to}
+                onClick={() => setOpen(false)}
+                className="block px-4 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+              >
+                {link.label}
+              </Link>
+            ))}
+            <button
+              onClick={handleLogout}
+              disabled={logout.isPending}
+              className="block w-full px-4 py-2 text-left text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-50"
+            >
+              Sair
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+function DesktopNav() {
+  const { data: user, isLoading } = useUser()
+  const linkClassName = 'text-muted-foreground transition-colors hover:text-foreground'
+
+  return (
+    <nav className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-8">
+      <Link to="/sobre" className={linkClassName}>
+        Sobre
+      </Link>
+
+      {isLoading ? null : user?.clinic ? (
+        <AccountMenu user={user} links={[{ to: '/clinica/confirmar', label: 'Confirmar tipagem' }]} />
+      ) : user ? (
+        <>
+          <Link to="/buscar" className={linkClassName}>
+            Buscar
+          </Link>
+          <AccountMenu user={user} links={[{ to: '/painel', label: 'Meus pets' }]} />
+        </>
+      ) : (
+        <>
+          <Link to="/clinica/cadastro" className={linkClassName}>
+            Sou clínica
+          </Link>
+          <Link to="/entrar" className={linkClassName}>
+            Entrar
+          </Link>
+          <Link
+            to="/cadastro"
+            className="w-fit rounded-full bg-primary px-5 py-2.5 text-primary-foreground transition-opacity hover:opacity-90"
+          >
+            Cadastrar
+          </Link>
+        </>
+      )}
+    </nav>
+  )
+}
+
 export default function Layout() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
@@ -82,9 +189,7 @@ export default function Layout() {
             Legado Terra
           </Link>
 
-          <nav className="hidden items-center gap-6 text-sm font-medium md:flex md:gap-8">
-            <NavLinks linkClassName="text-muted-foreground transition-colors hover:text-foreground" />
-          </nav>
+          <DesktopNav />
 
           <button
             type="button"
