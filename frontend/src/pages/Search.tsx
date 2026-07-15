@@ -68,7 +68,7 @@ export default function Search() {
         }))
 
   return (
-    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-12">
+    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 md:px-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-2 rounded-full border border-border bg-card p-1">
           <button
@@ -174,12 +174,12 @@ export default function Search() {
       {!coords ? (
         <p className="text-muted-foreground">Precisamos da sua localização pra buscar por perto.</p>
       ) : (
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          <div className="h-[420px] overflow-hidden rounded-xl border border-border">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-[3fr_2fr]">
+          <div className="h-[420px] overflow-hidden rounded-xl border border-border md:h-[560px] lg:h-[680px]">
             <DonorMap center={coords} points={points} />
           </div>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 md:h-[560px] md:overflow-y-auto md:pr-1 lg:h-[680px]">
             {isLoading && <p className="text-muted-foreground">buscando...</p>}
 
             {mode === 'doadores' &&
