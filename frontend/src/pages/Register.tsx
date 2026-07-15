@@ -3,6 +3,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
 import { z } from 'zod'
+import GoogleLoginButton from '../components/GoogleLoginButton'
+import PhoneField from '../components/form/PhoneField'
 import TextField from '../components/form/TextField'
 import { useRegister } from '../hooks/useAuth'
 import { getApiErrorMessage } from '../lib/errors'
@@ -61,10 +63,9 @@ export default function Register() {
           registration={register('email')}
           error={errors.email?.message}
         />
-        <TextField
+        <PhoneField
           label="Telefone (WhatsApp)"
-          type="tel"
-          placeholder="11999999999"
+          placeholder="(11) 99999-9999"
           registration={register('phone')}
           error={errors.phone?.message}
         />
@@ -107,6 +108,14 @@ export default function Register() {
           {register_.isPending ? 'Criando conta...' : 'Criar conta'}
         </button>
       </form>
+
+      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+        <div className="h-px flex-1 bg-border" />
+        ou
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      <GoogleLoginButton />
 
       <p className="text-sm text-muted-foreground">
         Já tem conta?{' '}

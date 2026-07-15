@@ -1,6 +1,7 @@
 import axios from 'axios'
 
-const baseURL = import.meta.env.VITE_API_URL ?? 'http://localhost'
+export const baseURL = import.meta.env.VITE_API_URL ?? 'http://localhost'
+export const googleLoginUrl = `${baseURL}/auth/google/redirect`
 
 export const api = axios.create({
   baseURL,

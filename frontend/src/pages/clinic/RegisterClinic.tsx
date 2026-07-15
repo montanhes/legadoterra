@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router'
 import { z } from 'zod'
+import PhoneField from '../../components/form/PhoneField'
 import TextField from '../../components/form/TextField'
 import { useRegisterClinic } from '../../hooks/useClinic'
 import { useGeolocation } from '../../hooks/useGeolocation'
@@ -66,10 +67,9 @@ export default function RegisterClinic() {
           registration={register('email')}
           error={errors.email?.message}
         />
-        <TextField
+        <PhoneField
           label="Telefone"
-          type="tel"
-          placeholder="11999999999"
+          placeholder="(11) 99999-9999"
           registration={register('phone')}
           error={errors.phone?.message}
         />

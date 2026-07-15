@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# binário de optional deps (rolldown/oxlint) muda por arquitetura —
+# build roda em node:22-alpine (arm64 no servidor), dev local costuma ser x86_64
+package-lock.json
+
 .env
 !.env.example
 

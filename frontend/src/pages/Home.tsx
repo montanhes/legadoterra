@@ -5,7 +5,7 @@ export default function Home() {
   const { data: user } = useUser()
 
   return (
-    <div className="min-h-svh bg-background text-foreground">
+    <div>
       <section className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-24">
         <p className="font-mono text-sm tracking-wide text-muted-foreground">legado terra</p>
         <h1 className="font-display text-5xl leading-tight text-balance md:text-6xl">

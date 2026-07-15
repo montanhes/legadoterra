@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router'
 import { z } from 'zod'
+import GoogleLoginButton from '../components/GoogleLoginButton'
 import TextField from '../components/form/TextField'
 import { useLogin } from '../hooks/useAuth'
 import { getApiErrorMessage } from '../lib/errors'
@@ -60,6 +61,14 @@ export default function Login() {
           {login.isPending ? 'Entrando...' : 'Entrar'}
         </button>
       </form>
+
+      <div className="flex items-center gap-3 text-xs text-muted-foreground">
+        <div className="h-px flex-1 bg-border" />
+        ou
+        <div className="h-px flex-1 bg-border" />
+      </div>
+
+      <GoogleLoginButton />
 
       <p className="text-sm text-muted-foreground">
         Ainda não tem conta?{' '}
