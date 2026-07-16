@@ -1,5 +1,11 @@
 import { Link } from 'react-router'
+import PhotoCarousel from '../components/PhotoCarousel'
 import { useUser } from '../hooks/useAuth'
+
+const terraPhotos = Array.from({ length: 9 }, (_, i) => ({
+  src: `/images/terra/terra${i + 1}.jpg`,
+  alt: 'Terra, uma gata preta de olhos verde-oliva',
+}))
 
 export default function About() {
   const { data: user } = useUser()
@@ -11,11 +17,7 @@ export default function About() {
         <h1 className="mt-2 font-display text-5xl">Terra</h1>
       </div>
 
-      <img
-        src="/images/terra.jpg"
-        alt="Terra, uma gata preta de olhos verde-oliva"
-        className="w-full rounded-2xl border border-border object-cover"
-      />
+      <PhotoCarousel images={terraPhotos} />
 
       <div className="flex flex-col gap-5 text-lg leading-relaxed text-foreground">
         <p>
