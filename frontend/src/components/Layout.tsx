@@ -185,7 +185,8 @@ export default function Layout() {
     <div className="flex min-h-svh flex-col bg-background text-foreground">
       <header className="border-b border-border">
         <div className="flex items-center justify-between px-6 py-5 md:px-10">
-          <Link to="/" className="font-display text-2xl md:text-3xl">
+          <Link to="/" className="flex items-center gap-2 font-display text-2xl md:text-3xl">
+            <img src="/images/logo.png" alt="" className="h-12 w-12 object-contain md:h-14 md:w-14" />
             Legado Terra
           </Link>
 
@@ -232,7 +233,7 @@ export default function Layout() {
 
           <div className="flex items-center gap-4">
             <a
-              href="#"
+              href="https://www.instagram.com/legadoterra.app"
               target="_blank"
               rel="noreferrer"
               aria-label="Instagram"
@@ -242,17 +243,6 @@ export default function Layout() {
                 <rect x="3" y="3" width="18" height="18" rx="5" />
                 <circle cx="12" cy="12" r="4.2" />
                 <circle cx="17.15" cy="6.85" r="1.05" fill="currentColor" stroke="none" />
-              </svg>
-            </a>
-            <a
-              href="#"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="Twitter / X"
-              className="text-muted-foreground transition-colors hover:text-foreground"
-            >
-              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor">
-                <path d="M18.24 3h2.9l-6.34 7.25L22.5 21h-5.84l-4.57-5.97L6.86 21H3.95l6.78-7.75L2.5 3h5.98l4.13 5.46zm-1.02 16.2h1.6L7.86 4.7H6.14z" />
               </svg>
             </a>
           </div>
