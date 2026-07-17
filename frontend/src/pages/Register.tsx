@@ -16,6 +16,9 @@ const schema = z
     phone: z.string().optional(),
     password: z.string().min(8, 'Mínimo de 8 caracteres.'),
     password_confirmation: z.string(),
+    privacy_consent: z
+      .boolean()
+      .refine((value) => value === true, 'É necessário aceitar a Política de Privacidade.'),
   })
   .refine((data) => data.password === data.password_confirmation, {
     message: 'As senhas não coincidem.',
@@ -52,77 +55,92 @@ export default function Register() {
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-16 md:py-24">
-      <h1 className="font-display text-3xl">Criar conta</h1>
+    <div className="mx-auto max-w-5xl px-6 py-16 md:py-24">
+      <div className="mx-auto flex max-w-sm flex-col gap-6">
+        <h1 className="font-display text-3xl">Criar conta</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <TextField label="Nome" registration={register('name')} error={errors.name?.message} />
-        <TextField
-          label="E-mail"
-          type="email"
-          registration={register('email')}
-          error={errors.email?.message}
-        />
-        <PhoneField
-          label="Telefone (WhatsApp)"
-          placeholder="(11) 99999-9999"
-          registration={register('phone')}
-          error={errors.phone?.message}
-        />
-        <TextField
-          label="Senha"
-          type="password"
-          registration={register('password')}
-          error={errors.password?.message}
-        />
-        <TextField
-          label="Confirmar senha"
-          type="password"
-          registration={register('password_confirmation')}
-          error={errors.password_confirmation?.message}
-        />
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <TextField label="Nome" registration={register('name')} error={errors.name?.message} />
+          <TextField
+            label="E-mail"
+            type="email"
+            registration={register('email')}
+            error={errors.email?.message}
+          />
+          <PhoneField
+            label="Telefone (WhatsApp)"
+            placeholder="(11) 99999-9999"
+            registration={register('phone')}
+            error={errors.phone?.message}
+          />
+          <TextField
+            label="Senha"
+            type="password"
+            registration={register('password')}
+            error={errors.password?.message}
+          />
+          <TextField
+            label="Confirmar senha"
+            type="password"
+            registration={register('password_confirmation')}
+            error={errors.password_confirmation?.message}
+          />
 
-        <div className="flex flex-col gap-1.5">
+          <div className="flex flex-col gap-1.5">
+            <button
+              type="button"
+              onClick={useMyLocation}
+              className="w-fit rounded-full border border-input px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
+            >
+              {coords ? '✓ localização capturada' : 'usar minha localização'}
+            </button>
+            {geoError && <span className="text-sm text-destructive">{geoError}</span>}
+            <span className="text-xs text-muted-foreground">
+              Usamos sua localização pra achar doadores perto de você. Pode pular e definir depois.
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-1.5">
+            <label className="flex items-start gap-2 text-sm text-muted-foreground">
+              <input type="checkbox" className="mt-0.5" {...register('privacy_consent')} />
+              Li e concordo com a{' '}
+              <Link to="/privacidade" target="_blank" className="text-foreground underline">
+                Política de Privacidade
+              </Link>
+            </label>
+            {errors.privacy_consent?.message && (
+              <span className="text-sm text-destructive">{errors.privacy_consent.message}</span>
+            )}
+          </div>
+
+          {register_.isError && (
+            <p className="text-sm text-destructive">{getApiErrorMessage(register_.error)}</p>
+          )}
+
           <button
-            type="button"
-            onClick={useMyLocation}
-            className="w-fit rounded-full border border-input px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
+            type="submit"
+            disabled={register_.isPending}
+            className="mt-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground disabled:opacity-50"
           >
-            {coords ? '✓ localização capturada' : 'usar minha localização'}
+            {register_.isPending ? 'Criando conta...' : 'Criar conta'}
           </button>
-          {geoError && <span className="text-sm text-destructive">{geoError}</span>}
-          <span className="text-xs text-muted-foreground">
-            Usamos sua localização pra achar doadores perto de você. Pode pular e definir depois.
-          </span>
+        </form>
+
+        <div className="flex items-center gap-3 text-xs text-muted-foreground">
+          <div className="h-px flex-1 bg-border" />
+          ou
+          <div className="h-px flex-1 bg-border" />
         </div>
 
-        {register_.isError && (
-          <p className="text-sm text-destructive">{getApiErrorMessage(register_.error)}</p>
-        )}
+        <GoogleLoginButton />
 
-        <button
-          type="submit"
-          disabled={register_.isPending}
-          className="mt-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground disabled:opacity-50"
-        >
-          {register_.isPending ? 'Criando conta...' : 'Criar conta'}
-        </button>
-      </form>
-
-      <div className="flex items-center gap-3 text-xs text-muted-foreground">
-        <div className="h-px flex-1 bg-border" />
-        ou
-        <div className="h-px flex-1 bg-border" />
+        <p className="text-sm text-muted-foreground">
+          Já tem conta?{' '}
+          <Link to="/entrar" className="text-foreground underline">
+            Entrar
+          </Link>
+        </p>
       </div>
-
-      <GoogleLoginButton />
-
-      <p className="text-sm text-muted-foreground">
-        Já tem conta?{' '}
-        <Link to="/entrar" className="text-foreground underline">
-          Entrar
-        </Link>
-      </p>
     </div>
   )
 }

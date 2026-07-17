@@ -233,9 +233,12 @@ export default function Layout() {
 
       <footer className="border-t border-border">
         <div className="flex items-center justify-between px-6 py-6 md:px-10">
-          <p className="text-xs text-muted-foreground">
-            © {new Date().getFullYear()} Legado Terra
-          </p>
+          <div className="flex items-center gap-4 text-xs text-muted-foreground">
+            <p>© {new Date().getFullYear()} Legado Terra</p>
+            <Link to="/privacidade" className="underline transition-colors hover:text-foreground">
+              Privacidade
+            </Link>
+          </div>
 
           <div className="flex items-center gap-4">
             <a

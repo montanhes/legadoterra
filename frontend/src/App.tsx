@@ -4,6 +4,7 @@ import ProtectedRoute from './components/ProtectedRoute'
 import ClinicRoute from './components/ClinicRoute'
 import Home from './pages/Home'
 import About from './pages/About'
+import Privacy from './pages/Privacy'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
@@ -20,6 +21,7 @@ function App() {
       <Route element={<Layout />}>
         <Route path="/" element={<Home />} />
         <Route path="/sobre" element={<About />} />
+        <Route path="/privacidade" element={<Privacy />} />
         <Route path="/entrar" element={<Login />} />
         <Route path="/cadastro" element={<Register />} />
         <Route path="/clinica/cadastro" element={<RegisterClinic />} />
