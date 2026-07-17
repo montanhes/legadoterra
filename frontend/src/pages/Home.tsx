@@ -7,7 +7,7 @@ export default function Home() {
 
   return (
     <div>
-      <section className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-16 md:py-24">
+      <section className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-16 md:py-24">
         <p className="font-mono text-sm tracking-wide text-muted-foreground">legado terra</p>
         <h1 className="font-display text-4xl leading-tight text-balance sm:text-5xl md:text-6xl">
           Um doador perto de você pode salvar a vida que você mais ama.
@@ -75,7 +75,7 @@ export default function Home() {
       </section>
 
       <section className="border-t border-border px-6 py-16 md:py-24">
-        <div className="mx-auto max-w-3xl">
+        <div className="mx-auto max-w-5xl">
           <PixDonation />
         </div>
       </section>

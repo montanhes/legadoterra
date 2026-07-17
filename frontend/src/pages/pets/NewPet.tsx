@@ -68,75 +68,77 @@ export default function NewPet() {
   }
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-16 md:py-24">
-      <h1 className="font-display text-3xl">Novo pet</h1>
+    <div className="mx-auto max-w-5xl px-6 py-16 md:py-24">
+      <div className="mx-auto flex max-w-sm flex-col gap-6">
+        <h1 className="font-display text-3xl">Novo pet</h1>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-        <TextField label="Nome" registration={register('name')} error={errors.name?.message} />
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
+          <TextField label="Nome" registration={register('name')} error={errors.name?.message} />
 
-        <SelectField
-          label="Espécie"
-          registration={register('species')}
-          placeholder="Selecione"
-          options={Object.entries(speciesLabels).map(([value, label]) => ({ value, label }))}
-          error={errors.species?.message}
-        />
+          <SelectField
+            label="Espécie"
+            registration={register('species')}
+            placeholder="Selecione"
+            options={Object.entries(speciesLabels).map(([value, label]) => ({ value, label }))}
+            error={errors.species?.message}
+          />
 
-        <SelectField
-          label="Sexo"
-          registration={register('sex')}
-          placeholder="Selecione"
-          options={Object.entries(sexLabels).map(([value, label]) => ({ value, label }))}
-          error={errors.sex?.message}
-        />
+          <SelectField
+            label="Sexo"
+            registration={register('sex')}
+            placeholder="Selecione"
+            options={Object.entries(sexLabels).map(([value, label]) => ({ value, label }))}
+            error={errors.sex?.message}
+          />
 
-        <TextField label="Raça (opcional)" registration={register('breed')} />
-        <TextField
-          label="Peso em kg (opcional)"
-          type="number"
-          registration={register('weight')}
-          error={errors.weight?.message}
-        />
-        <DateField
-          label="Data de nascimento (opcional)"
-          name="birthdate"
-          control={control}
-          error={errors.birthdate?.message}
-        />
+          <TextField label="Raça (opcional)" registration={register('breed')} />
+          <TextField
+            label="Peso em kg (opcional)"
+            type="number"
+            registration={register('weight')}
+            error={errors.weight?.message}
+          />
+          <DateField
+            label="Data de nascimento (opcional)"
+            name="birthdate"
+            control={control}
+            error={errors.birthdate?.message}
+          />
 
-        <label className="flex items-center gap-2 text-sm text-muted-foreground">
-          <input type="checkbox" {...register('castrado')} />
-          Castrado(a)
-        </label>
+          <label className="flex items-center gap-2 text-sm text-muted-foreground">
+            <input type="checkbox" {...register('castrado')} />
+            Castrado(a)
+          </label>
 
-        {!hasLocation && (
-          <div className="flex flex-col gap-1.5">
-            <button
-              type="button"
-              onClick={useMyLocation}
-              className="w-fit rounded-full border border-input px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
-            >
-              usar minha localização
-            </button>
-            {geoError && <span className="text-sm text-destructive">{geoError}</span>}
-            <span className="text-xs text-muted-foreground">
-              Precisamos da localização do pet pra ele aparecer nas buscas por doador.
-            </span>
-          </div>
-        )}
+          {!hasLocation && (
+            <div className="flex flex-col gap-1.5">
+              <button
+                type="button"
+                onClick={useMyLocation}
+                className="w-fit rounded-full border border-input px-4 py-2 text-sm text-muted-foreground hover:text-foreground"
+              >
+                usar minha localização
+              </button>
+              {geoError && <span className="text-sm text-destructive">{geoError}</span>}
+              <span className="text-xs text-muted-foreground">
+                Precisamos da localização do pet pra ele aparecer nas buscas por doador.
+              </span>
+            </div>
+          )}
 
-        {createPet.isError && (
-          <p className="text-sm text-destructive">{getApiErrorMessage(createPet.error)}</p>
-        )}
+          {createPet.isError && (
+            <p className="text-sm text-destructive">{getApiErrorMessage(createPet.error)}</p>
+          )}
 
-        <button
-          type="submit"
-          disabled={createPet.isPending}
-          className="mt-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground disabled:opacity-50"
-        >
-          {createPet.isPending ? 'Salvando...' : 'Cadastrar pet'}
-        </button>
-      </form>
+          <button
+            type="submit"
+            disabled={createPet.isPending}
+            className="mt-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground disabled:opacity-50"
+          >
+            {createPet.isPending ? 'Salvando...' : 'Cadastrar pet'}
+          </button>
+        </form>
+      </div>
     </div>
   )
 }
