@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, Outlet, useLocation, useNavigate } from 'react-router'
 import { useLogout, useUser } from '../hooks/useAuth'
+import NotificationBell from './NotificationBell'
+import ShareButton from './ShareButton'
 import type { User } from '../types/api'
 
 interface NavLinksProps {
@@ -145,12 +147,16 @@ function DesktopNav() {
       </Link>
 
       {isLoading ? null : user?.clinic ? (
-        <AccountMenu user={user} links={[{ to: '/clinica/confirmar', label: 'Confirmar tipagem' }]} />
+        <>
+          <NotificationBell />
+          <AccountMenu user={user} links={[{ to: '/clinica/confirmar', label: 'Confirmar tipagem' }]} />
+        </>
       ) : user ? (
         <>
           <Link to="/buscar" className={linkClassName}>
             Buscar
           </Link>
+          <NotificationBell />
           <AccountMenu user={user} links={[{ to: '/painel', label: 'Meus pets' }]} />
         </>
       ) : (
@@ -245,6 +251,7 @@ export default function Layout() {
                 <circle cx="17.15" cy="6.85" r="1.05" fill="currentColor" stroke="none" />
               </svg>
             </a>
+            <ShareButton />
           </div>
         </div>
       </footer>
