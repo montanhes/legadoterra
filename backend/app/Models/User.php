@@ -12,13 +12,21 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
 #[Fillable(['name', 'email', 'google_id', 'password', 'phone', 'cep', 'city', 'state', 'lat', 'lng'])]
 #[Hidden(['password', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements AuditableContract
 {
     /** @use HasFactory<UserFactory> */
-    use HasApiTokens, HasFactory, Notifiable;
+    use Auditable, HasApiTokens, HasFactory, Notifiable;
+
+    /**
+     * Excluídos da auditoria por segurança — nunca guardar hash de senha,
+     * token de sessão persistente ou o id do Google em old_values/new_values.
+     */
+    protected $auditExclude = ['password', 'remember_token', 'google_id'];
 
     /**
      * Get the attributes that should be cast.
