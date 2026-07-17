@@ -1,4 +1,5 @@
 import { Link } from 'react-router'
+import PixDonation from '../components/PixDonation'
 import { useUser } from '../hooks/useAuth'
 
 export default function Home() {
@@ -70,6 +71,12 @@ export default function Home() {
               Sou clínica
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="border-t border-border px-6 py-16 md:py-24">
+        <div className="mx-auto max-w-3xl">
+          <PixDonation />
         </div>
       </section>
     </div>

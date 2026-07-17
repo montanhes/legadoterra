@@ -1,5 +1,6 @@
 import { Link } from 'react-router'
 import PhotoCarousel from '../components/PhotoCarousel'
+import PixDonation from '../components/PixDonation'
 import { useUser } from '../hooks/useAuth'
 
 const terraPhotos = Array.from({ length: 9 }, (_, i) => ({
@@ -47,6 +48,8 @@ export default function About() {
       >
         Cadastrar meu pet como doador
       </Link>
+
+      <PixDonation />
     </div>
   )
 }
