@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ClinicController;
@@ -24,6 +25,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 
     Route::get('/user', fn (Request $request) => UserResource::make($request->user()->load('clinic')));
+    Route::delete('/user', [AccountController::class, 'destroy']);
 
     Route::apiResource('pets', PetController::class);
     Route::post('/pets/{pet}/donor-profile', [DonorProfileController::class, 'store']);

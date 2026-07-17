@@ -75,3 +75,17 @@ export function useLogout() {
     },
   })
 }
+
+export function useDeleteAccount() {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async () => {
+      await api.delete('/api/user')
+    },
+    onSuccess: () => {
+      queryClient.setQueryData(authUserKey, null)
+      queryClient.clear()
+    },
+  })
+}
