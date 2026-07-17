@@ -8,6 +8,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import NewPet from './pages/pets/NewPet'
+import EditPet from './pages/pets/EditPet'
 import PetDetail from './pages/pets/PetDetail'
 import Search from './pages/Search'
 import RegisterClinic from './pages/clinic/RegisterClinic'
@@ -27,6 +28,7 @@ function App() {
           <Route path="/painel" element={<Dashboard />} />
           <Route path="/painel/pets/novo" element={<NewPet />} />
           <Route path="/painel/pets/:id" element={<PetDetail />} />
+          <Route path="/painel/pets/:id/editar" element={<EditPet />} />
           <Route path="/buscar" element={<Search />} />
         </Route>
 

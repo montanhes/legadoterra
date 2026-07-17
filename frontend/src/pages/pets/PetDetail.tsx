@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useNavigate, useParams } from 'react-router'
 import { z } from 'zod'
 import SelectField from '../../components/form/SelectField'
 import StatusBadge from '../../components/StatusBadge'
@@ -37,7 +37,7 @@ export default function PetDetail() {
   } = useForm<DonorFormValues>({ resolver: zodResolver(donorSchema) })
 
   if (isLoading || !pet) {
-    return <div className="mx-auto max-w-3xl px-6 py-16 md:py-24 text-muted-foreground">carregando...</div>
+    return <div className="mx-auto max-w-5xl px-6 py-16 md:py-24 text-muted-foreground">carregando...</div>
   }
 
   const mutation = pet.donor_profile ? updateDonorProfile : createDonorProfile
@@ -64,12 +64,20 @@ export default function PetDetail() {
   }))
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-16 md:py-24">
-      <div>
-        <h1 className="font-display text-3xl">{pet.name}</h1>
-        <p className="font-mono text-sm text-muted-foreground">
-          {pet.species_label} · {pet.sex_label} · {pet.breed ?? 'SRD'}
-        </p>
+    <div className="mx-auto flex max-w-5xl flex-col gap-8 px-6 py-16 md:py-24">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h1 className="font-display text-3xl">{pet.name}</h1>
+          <p className="font-mono text-sm text-muted-foreground">
+            {pet.species_label} · {pet.sex_label} · {pet.breed ?? 'SRD'}
+          </p>
+        </div>
+        <Link
+          to={`/painel/pets/${petId}/editar`}
+          className="shrink-0 rounded-full border border-input px-4 py-2 text-sm text-muted-foreground transition-colors hover:border-primary/50 hover:text-foreground"
+        >
+          Editar
+        </Link>
       </div>
 
       {pet.donor_profile ? (

@@ -51,6 +51,21 @@ export function useCreatePet() {
   })
 }
 
+export function useUpdatePet(id: number) {
+  const queryClient = useQueryClient()
+
+  return useMutation({
+    mutationFn: async (payload: Partial<PetPayload>) => {
+      const response = await api.patch<{ data: Pet }>(`/api/pets/${id}`, payload)
+      return response.data.data
+    },
+    onSuccess: (pet) => {
+      queryClient.setQueryData(petKey(id), pet)
+      queryClient.invalidateQueries({ queryKey: petsKey })
+    },
+  })
+}
+
 export function useDeletePet() {
   const queryClient = useQueryClient()
 
