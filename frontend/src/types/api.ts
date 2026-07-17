@@ -149,6 +149,33 @@ export interface Pet {
   created_at: string
 }
 
+export const ContactRequestStatus = {
+  Pendente: 1,
+  Aceita: 2,
+  Recusada: 3,
+} as const
+export type ContactRequestStatus = (typeof ContactRequestStatus)[keyof typeof ContactRequestStatus]
+export const contactRequestStatusLabels: Record<ContactRequestStatus, string> = {
+  [ContactRequestStatus.Pendente]: 'Pendente',
+  [ContactRequestStatus.Aceita]: 'Aceita',
+  [ContactRequestStatus.Recusada]: 'Recusada',
+}
+
+export interface ContactRequest {
+  id: number
+  direction: 'sent' | 'received'
+  status: ContactRequestStatus
+  status_label: string
+  pet: {
+    id: number
+    name: string
+    species_label: string
+  }
+  requester_name: string
+  target_phone: string | null
+  created_at: string
+}
+
 export interface DonorSearchResult {
   id: number
   name: string
@@ -160,6 +187,8 @@ export interface DonorSearchResult {
   lat: number
   lng: number
   donor_profile: DonorProfile
+  contact_status: ContactRequestStatus | null
+  contact_status_label: string | null
   tutor: {
     name: string
     phone: string | null

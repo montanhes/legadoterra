@@ -13,6 +13,7 @@ export default function CreateSOSForm({ pets, onCreated, onCancel }: CreateSOSFo
   const createSOS = useCreateDonationRequest()
   const [petId, setPetId] = useState('')
   const [bloodType, setBloodType] = useState('')
+  const [sharePhone, setSharePhone] = useState(true)
 
   const selectedPet = pets.find((pet) => pet.id === Number(petId))
 
@@ -24,6 +25,7 @@ export default function CreateSOSForm({ pets, onCreated, onCancel }: CreateSOSFo
       pet_id: Number(petId),
       donation_type: DonationType.SangueTotal,
       blood_type_needed: bloodType ? (Number(bloodType) as BloodType) : null,
+      share_phone: sharePhone,
     })
     onCreated()
   }
@@ -75,6 +77,17 @@ export default function CreateSOSForm({ pets, onCreated, onCancel }: CreateSOSFo
           </select>
         </div>
       )}
+
+      <label className="flex items-start gap-2 text-sm text-muted-foreground">
+        <input
+          type="checkbox"
+          checked={sharePhone}
+          onChange={(e) => setSharePhone(e.target.checked)}
+          className="mt-0.5"
+        />
+        Permitir que doadores vejam meu telefone direto no pedido (recomendado pra emergência —
+        sem isso, quem quiser ajudar não vai conseguir te contatar por aqui)
+      </label>
 
       {createSOS.isError && (
         <p className="text-sm text-destructive">{getApiErrorMessage(createSOS.error)}</p>

@@ -11,10 +11,12 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class DonationRequest extends Model
+class DonationRequest extends Model implements AuditableContract
 {
-    use HasFactory, HasPointLocation;
+    use Auditable, HasFactory, HasPointLocation;
 
     protected $fillable = [
         'requester_id',
@@ -23,6 +25,7 @@ class DonationRequest extends Model
         'blood_type_needed',
         'donation_type',
         'status',
+        'share_phone',
         'lat',
         'lng',
         'expires_at',
@@ -35,6 +38,7 @@ class DonationRequest extends Model
             'blood_type_needed' => BloodType::class,
             'donation_type' => DonationType::class,
             'status' => DonationRequestStatus::class,
+            'share_phone' => 'boolean',
             'lat' => 'decimal:7',
             'lng' => 'decimal:7',
             'expires_at' => 'datetime',

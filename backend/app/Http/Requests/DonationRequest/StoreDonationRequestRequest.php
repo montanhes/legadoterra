@@ -35,6 +35,7 @@ class StoreDonationRequestRequest extends FormRequest
             'lat' => ['required', 'numeric', 'between:-90,90'],
             'lng' => ['required', 'numeric', 'between:-180,180'],
             'expires_in_days' => ['sometimes', 'integer', 'min:1', 'max:30'],
+            'share_phone' => ['sometimes', 'boolean'],
         ];
     }
 

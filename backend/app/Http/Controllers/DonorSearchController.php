@@ -26,7 +26,11 @@ class DonorSearchController extends Controller
                 }
             })
             ->when($request->filled('species'), fn ($query) => $query->where('species', $request->integer('species')))
-            ->with(['donorProfile', 'tutor'])
+            ->with([
+                'donorProfile',
+                'tutor',
+                'contactRequests' => fn ($query) => $query->where('requester_id', $request->user()->id),
+            ])
             ->get();
 
         return DonorSearchResource::collection($pets);

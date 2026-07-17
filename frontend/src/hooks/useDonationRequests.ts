@@ -34,6 +34,7 @@ interface CreateDonationRequestPayload {
   pet_id: number
   donation_type: DonationType
   blood_type_needed?: BloodType | null
+  share_phone?: boolean
   lat?: number
   lng?: number
 }

@@ -2,12 +2,14 @@ import { useEffect, useState } from 'react'
 import CreateSOSForm from '../components/CreateSOSForm'
 import DonorMap, { type MapPoint } from '../components/DonorMap'
 import { useUser } from '../hooks/useAuth'
+import { useCreateContactRequest } from '../hooks/useContactRequests'
 import { useDonationRequestSearch } from '../hooks/useDonationRequests'
 import { useDonorSearch } from '../hooks/useDonorSearch'
 import { useGeolocation } from '../hooks/useGeolocation'
 import { usePets } from '../hooks/usePets'
 import { whatsappLink } from '../lib/whatsapp'
 import {
+  ContactRequestStatus,
   type BloodType,
   type Species,
   bloodTypeLabels,
@@ -20,6 +22,7 @@ type Mode = 'doadores' | 'sos'
 export default function Search() {
   const { data: user } = useUser()
   const { data: myPets } = usePets()
+  const createContactRequest = useCreateContactRequest()
   const [mode, setMode] = useState<Mode>('doadores')
   const [showSOSForm, setShowSOSForm] = useState(false)
   const [radiusKm, setRadiusKm] = useState(25)
@@ -68,7 +71,7 @@ export default function Search() {
         }))
 
   return (
-    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-12 md:px-10">
+    <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-12 md:px-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-2 rounded-full border border-border bg-card p-1">
           <button
@@ -198,7 +201,7 @@ export default function Search() {
                     {donor.species_label} · {donor.breed ?? 'SRD'} ·{' '}
                     {donor.donor_profile.blood_type_label ?? 'tipo não informado'}
                   </p>
-                  {donor.tutor.phone && (
+                  {donor.contact_status === ContactRequestStatus.Aceita && donor.tutor.phone ? (
                     <a
                       href={whatsappLink(
                         donor.tutor.phone,
@@ -210,6 +213,23 @@ export default function Search() {
                     >
                       Pedir contato
                     </a>
+                  ) : donor.contact_status === ContactRequestStatus.Pendente ? (
+                    <span className="mt-1 w-fit text-sm text-muted-foreground">
+                      Aguardando resposta do tutor
+                    </span>
+                  ) : donor.contact_status === ContactRequestStatus.Recusada ? (
+                    <span className="mt-1 w-fit text-sm text-muted-foreground">
+                      Solicitação de contato recusada
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => createContactRequest.mutate(donor.id)}
+                      disabled={createContactRequest.isPending}
+                      className="mt-1 w-fit rounded-full border border-input px-4 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/50 disabled:opacity-50"
+                    >
+                      Solicitar contato
+                    </button>
                   )}
                 </div>
               ))}

@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\ClinicController;
 use App\Http\Controllers\ClinicRegistrationController;
+use App\Http\Controllers\ContactRequestController;
 use App\Http\Controllers\DonationRequestController;
 use App\Http\Controllers\DonorProfileController;
 use App\Http\Controllers\DonorSearchController;
@@ -35,6 +36,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::patch('/donation-requests/{donation_request}', [DonationRequestController::class, 'update']);
 
     Route::post('/donor-profiles/{donor_profile}/reports', [ReportController::class, 'store']);
+
+    Route::get('/contact-requests', [ContactRequestController::class, 'index']);
+    Route::post('/contact-requests', [ContactRequestController::class, 'store']);
+    Route::patch('/contact-requests/{contact_request}', [ContactRequestController::class, 'update']);
 
     Route::get('/clinics', [ClinicController::class, 'index']);
 

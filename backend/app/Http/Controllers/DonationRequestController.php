@@ -41,6 +41,7 @@ class DonationRequestController extends Controller
             'blood_type_needed' => $request->validated('blood_type_needed'),
             'donation_type' => $request->validated('donation_type'),
             'status' => DonationRequestStatus::Aberta,
+            'share_phone' => $request->boolean('share_phone', true),
             'lat' => $request->validated('lat'),
             'lng' => $request->validated('lng'),
             'expires_at' => now()->addDays($request->integer('expires_in_days', 7)),

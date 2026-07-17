@@ -34,7 +34,7 @@ class DonationRequestSearchResource extends JsonResource
             'expires_at' => $this->expires_at,
             'requester' => [
                 'name' => $this->requester->name,
-                'phone' => $this->requester->phone,
+                'phone' => $this->share_phone ? $this->requester->phone : null,
             ],
         ];
     }

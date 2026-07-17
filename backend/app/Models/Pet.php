@@ -12,10 +12,12 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use OwenIt\Auditing\Auditable;
+use OwenIt\Auditing\Contracts\Auditable as AuditableContract;
 
-class Pet extends Model
+class Pet extends Model implements AuditableContract
 {
-    use HasFactory, HasPointLocation;
+    use Auditable, HasFactory, HasPointLocation;
 
     protected $fillable = [
         'tutor_id',
@@ -62,6 +64,11 @@ class Pet extends Model
     public function badges(): BelongsToMany
     {
         return $this->belongsToMany(Badge::class, 'pet_badges')->withPivot('awarded_at');
+    }
+
+    public function contactRequests(): HasMany
+    {
+        return $this->hasMany(ContactRequest::class);
     }
 
     /**
