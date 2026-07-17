@@ -42,7 +42,7 @@ export default function RegisterClinic() {
   }
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col gap-6 px-6 py-16 md:py-24">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-16 md:py-24">
       <div>
         <h1 className="font-display text-3xl">Cadastro de clínica</h1>
         <p className="mt-2 text-sm text-muted-foreground">

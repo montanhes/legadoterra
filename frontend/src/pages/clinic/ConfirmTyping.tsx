@@ -26,7 +26,7 @@ export default function ConfirmTyping() {
 
   if (!user?.clinic?.verified) {
     return (
-      <div className="mx-auto max-w-sm px-6 py-16 md:py-24">
+      <div className="mx-auto max-w-3xl px-6 py-16 md:py-24">
         <h1 className="font-display text-3xl">{user?.clinic?.name}</h1>
         <p className="mt-4 rounded-xl border border-border bg-card p-4 text-muted-foreground">
           Sua clínica ainda está aguardando aprovação. Assim que verificarmos o cadastro, você
@@ -45,7 +45,7 @@ export default function ConfirmTyping() {
   }
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col gap-6 px-6 py-16 md:py-24">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-16 md:py-24">
       <div>
         <h1 className="font-display text-3xl">{user.clinic.name}</h1>
         <p className="mt-2 text-sm text-muted-foreground">

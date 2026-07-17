@@ -12,7 +12,7 @@ export default function About() {
   const { data: user } = useUser()
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-10 px-6 py-16 md:py-24">
+    <div className="mx-auto flex max-w-3xl flex-col gap-10 px-6 py-16 md:py-24">
       <div>
         <p className="font-mono text-sm text-muted-foreground">sobre o nome</p>
         <h1 className="mt-2 font-display text-5xl">Terra</h1>

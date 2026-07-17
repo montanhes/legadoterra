@@ -64,7 +64,7 @@ export default function PetDetail() {
   }))
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col gap-8 px-6 py-16 md:py-24">
+    <div className="mx-auto flex max-w-3xl flex-col gap-8 px-6 py-16 md:py-24">
       <div>
         <h1 className="font-display text-3xl">{pet.name}</h1>
         <p className="font-mono text-sm text-muted-foreground">

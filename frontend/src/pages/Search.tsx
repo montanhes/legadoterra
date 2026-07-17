@@ -68,7 +68,7 @@ export default function Search() {
         }))
 
   return (
-    <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 md:px-10">
+    <div className="mx-auto flex max-w-3xl flex-col gap-6 px-6 py-12 md:px-10">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex gap-2 rounded-full border border-border bg-card p-1">
           <button
