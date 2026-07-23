@@ -68,6 +68,7 @@ export function useLogout() {
 
   return useMutation({
     mutationFn: async () => {
+      await ensureCsrfCookie()
       await api.post('/api/logout')
     },
     onSuccess: () => {
